@@ -1,0 +1,254 @@
+@font-face {
+    font-family: 'Franklin Gothic Medium';
+    src: url('chrome://xuloobe/skin/framd.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+#xulOOBEWindow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    font-size: 9pt;
+
+    #modes {
+        width: 1024px;
+        height: 768px;
+
+        #please-wait {
+            align-items: center;
+            justify-content: center;
+            list-style-image: url("chrome://xuloobe/skin/icons/pleasewait.gif");
+            background-color: #000;
+
+            .please-wait-screen {
+                width: 640px;
+                height: 480px;
+            }
+        }
+
+        #intro-container {            
+            #intro-elem {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        #main-container {
+            background-color: #4E6FD6;
+
+            .page-header {
+                background-image: url("chrome://xuloobe/skin/icons/wpatop.jpg");
+                background-repeat: no-repeat;
+                background-position: left bottom;
+                background-color: #003399;
+                
+                padding-inline: 20px;
+                padding-block-start: 5px;
+                padding-block-end: 11px;
+
+                .header-logo {
+                    width: 255px;
+                    height: 40px;
+                    list-style-image: url("chrome://xuloobe/skin/icons/mslogo.jpg");                
+                }
+            }
+
+            .page {
+                flex: 1;
+                background-image: url("chrome://xuloobe/skin/icons/newmark1.jpg");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .page-footer {
+                justify-content: space-between;
+                background-image: url("chrome://xuloobe/skin/icons/wpabtm.jpg");
+                background-repeat: no-repeat;
+                background-position: left top;
+                background-color: #003399;
+                padding-block-start: 2px;
+                
+                height: 58px;
+
+                #footer-button {
+                    appearance: none;
+                    color: #FFF;
+                    background-color: transparent;
+                    padding: 0 !important;
+                    padding-inline: 8px !important;
+                    border: 0 !important;
+                    margin: 0 !important;
+                    min-width: 0 !important;
+
+                    .button-text {
+                        margin-top: 1px;
+                    }
+                }
+
+                .page-footer-left {
+                    padding-inline-start: 7px !important;
+
+                    #footer-button {
+                        .button-box {
+                            .button-icon {
+                                margin-inline-end: 4px;
+                            }
+                        }
+                    }
+                }
+
+                .page-footer-right {
+                    padding-inline-end: 17px;
+
+                    #footer-button {
+                        .button-box {
+                            flex-direction: row-reverse;
+
+                            .button-icon {
+                                margin-inline-start: 4px;
+                            }
+                        }
+                    }
+                }
+
+                .back-button {
+                    list-style-image: url("chrome://xuloobe/skin/icons/backup.jpg");
+
+                    &:not([disabled="true"]) {
+                        &:hover {
+                            list-style-image: url("chrome://xuloobe/skin/icons/backover.jpg");
+
+                            &:active {
+                                list-style-image: url("chrome://xuloobe/skin/icons/backdown.jpg");
+                            }
+                        }
+                    }
+
+                    &[disabled="true"] {
+                        list-style-image: url("chrome://xuloobe/skin/icons/backoff.jpg");
+                    }
+                }
+
+                .skip-button {
+                    list-style-image: url("chrome://xuloobe/skin/icons/skipup.jpg");
+
+                    &:not([disabled="true"]) {
+                        &:hover {
+                            list-style-image: url("chrome://xuloobe/skin/icons/skipover.jpg");
+
+                            &:active {
+                                list-style-image: url("chrome://xuloobe/skin/icons/skipdown.jpg");
+                            }
+                        }
+                    }
+
+                    &[disabled="true"] {
+                        list-style-image: url("chrome://xuloobe/skin/icons/nextoff.jpg");
+                    }
+                }
+
+                .next-button {
+                    list-style-image: url("chrome://xuloobe/skin/icons/nextup.jpg");
+
+                    &:not([disabled="true"]) {
+                        &:hover {
+                            list-style-image: url("chrome://xuloobe/skin/icons/nextover.jpg");
+
+                            &:active {
+                                list-style-image: url("chrome://xuloobe/skin/icons/nextdown.jpg");
+                            }
+                        }
+                    }
+
+                    &[disabled="true"] {
+                        list-style-image: url("chrome://xuloobe/skin/icons/nextoff.jpg");
+                    }
+                }
+            }   
+        }
+    }
+
+    .page {
+        padding-inline: 63px;
+        color: #FFF;
+
+        .page-header-title {
+            letter-spacing: 0.15px;
+            word-spacing: 1px;
+            font-size: 31.5px;
+            font-family: "Franklin Gothic Medium";
+            font-weight: bold;
+            margin-block: 18px 15px;
+            text-shadow:
+                1px 1px #1342A5,
+                2px 2px #2652B4,
+                3px 3px #3961C2,
+                4px 4px #4B70CF;
+        }
+
+        label,
+        span {
+            padding: 0;
+            margin: 0;
+            margin-block: 8px;
+            line-height: 16px;
+        }
+    }
+
+    .dialup-animation {
+        width: 324px;
+        list-style-image: url("chrome://xuloobe/skin/icons/dialup.gif");
+        margin-inline: auto;
+        margin-top: 10px;
+    }
+
+    radiogroup {
+        margin-block: 8px;
+
+        radio {
+            margin: 4px;
+            padding-bottom: 2px;
+            padding-inline-start: 5px;
+
+            .radio-label-box {
+                padding-inline-start: 2px;
+            }
+
+            .radio-label {
+                margin: 0;
+            }
+        }
+    }
+
+    .user-name-boxes {
+        width: 600px;
+        flex-direction: column;
+        margin-top: 7px;
+        margin-bottom: -3px;
+
+        tr {
+            margin-block: 5px;
+            margin-inline: 20px;
+        }
+
+        td {
+            height: 22px;
+        }
+
+        .user-count-label {
+            width: 225px;
+        }
+
+        .user-input-box-container {
+            width: 167px;
+
+            .user-name-box {
+                width: 100%;
+                margin: 0;
+            }
+        }
+    }
+}

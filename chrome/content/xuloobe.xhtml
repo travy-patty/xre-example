@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://xuloobe/locale/xuloobe.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://xuloobe/skin/" type="text/css"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        id="xulOOBEWindow"
+        icon="xulOOBEWindow"
+        title="&xuloobe.title;"
+        width="1024"
+        height="768"
+        style="color-scheme: light;"
+        hidechrome="true" 
+        sizemode="maximized">
+
+    <!-- <script type="application/javascript" src="chrome://xuloobe/content/jszip.min.js" />
+    <script type="application/javascript" src="chrome://xuloobe/content/FrontierAgentServer_w.js" /> -->
+
+    <deck id="modes">
+        <box id="please-wait">
+            <image class="please-wait-screen" />
+        </box>
+        <box id="intro-container">
+            <html:video id="intro-elem"></html:video>
+        </box>
+        <vbox id="main-container">
+            <hbox class="page-header">
+                <image class="header-logo" />
+            </hbox>
+            <deck id="page-container" flex="1">
+                <!-- Welcome Page -->
+                <vbox id="page1" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">Welcome to Microsoft Windows</html:h1>  
+                        <vbox class="page-content">
+                            <label>Thank you for purchasing Microsoft Windows XP</label>
+                            <label>Let's spend a few minutes setting up your computer.</label>
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" hidden="true" disabled="true" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)"/>
+                        </hbox>
+                    </hbox>
+                </vbox>
+
+                <!-- Internet Connectivity -->
+                <vbox id="page2" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">Checking your Internet connectivity</html:h1>  
+                        <vbox class="page-content">
+                            <label>Please wait for a moment while Windows checks to see if this computer is already connected to the Internet.</label>
+                            <image class="dialup-animation" />
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" disabled="true" />
+                        </hbox>
+                    </hbox>
+                </vbox>
+
+                <!-- Connect Internet options -->
+                <vbox id="page3" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">Will this computer connect to the Internet directly, or through a network?</html:h1>  
+                        <vbox class="page-content">
+                            <label>You can set up this computer to the Internet directly, or through a network of connected computers, if you have one. In either case, the Internet Connection Firewall in Windows protects your computer from unauthorized access over the Internet.</label>
+                            <label>Will this computer connect to the Internet through a network?</label>
+                            <radiogroup>
+                                <radio label="Yes, this computer will connect through a local area network or home network" accesskey="c"/>
+                                <radio label="No, this computer will connect directly to the Internet" accesskey="o"/>
+                            </radiogroup>
+                            <html:span>If you're not sure whether your computer is on a network, select No above. You can always change this option after you finish setting up Windows. Just click <html:strong>Control Panel</html:strong> on the <html:strong>Start</html:strong> menu, and then click <html:strong>Network and Internet Connections</html:strong>.</html:span>
+                            <label>If you don't want this computer to connect to the Internet now, click Skip.</label>
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                        </hbox>
+                    </hbox>
+                </vbox>
+
+                <!-- Account Creation -->
+                <vbox id="page4" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">Who will use this computer?</html:h1>  
+                        <vbox class="page-content">
+                            <label>Type the name of each person who will use this computer.  Windows will create a separate user account for each person so you can personalize the way you want Windows to organize and display information, protect your files and computer settings, and customize the desktop.</label>
+                            <table class="user-name-boxes">
+                                <tr>
+                                    <td class="user-count-label">
+                                        <label accesskey="u">Your name:</label>
+                                    </td>
+                                    <td class="user-input-box-container">
+                                        <html:input type="text" id="inputUser_1" class="user-name-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="user-count-label">
+                                        <label accesskey="2">2nd User:</label>
+                                    </td>
+                                    <td class="user-input-box-container">
+                                        <html:input type="text" id="inputUser_2" class="user-name-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="user-count-label">
+                                        <label accesskey="3">3rd User:</label>
+                                    </td>
+                                    <td class="user-input-box-container">
+                                        <html:input type="text" id="inputUser_3" class="user-name-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="user-count-label">
+                                        <label accesskey="4">4th User:</label>
+                                    </td>
+                                    <td class="user-input-box-container">
+                                        <html:input type="text" id="inputUser_4" class="user-name-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="user-count-label">
+                                        <label accesskey="5">5th User:</label>
+                                    </td>
+                                    <td class="user-input-box-container">
+                                        <html:input type="text" id="inputUser_5" class="user-name-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <html:span>These names will appear on the Welcome screen in alphabetical order. When you start Windows, simply click your name on the Welcome screen to begin. If you want to set passwords and limit permissions for each user, or add more user accounts after you finish setting up Windows, just click <html:strong>Control Panel</html:strong> on the <html:strong>Start</html:strong> menu, and then click <html:strong>User Accounts</html:strong>.</html:span>
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                        </hbox>
+                    </hbox>
+                </vbox>
+
+                <!-- End -->
+                <vbox id="page5" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">Thank you!</html:h1>  
+                        <vbox class="page-content">
+                            <label>Congratulations, you're ready to go!</label>
+                            <label>Here's what you just accomplished:</label>
+                            <html:span>To learn about the exciting new features of Windows XP, take the product tour. You can also find useful information in the <html:strong>Help and Support</html:strong> Center. These options are located on the <html:strong>Start</html:strong> menu.</html:span>
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" hidden="true" disabled="true" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
+                            <button id="footer-button" class="next-button" label="Finish" accesskey="F" onclick="window.close()" />
+                        </hbox>
+                    </hbox>
+                </vbox>
+            </deck>
+        </vbox>
+    </deck>
+
+    <!-- <html:div id="qmark-web" style="width:200px;height:157px;overflow:hidden;">
+        <html:img id="qmark-frame" width="200" height="157" alt=" " />
+    </html:div> -->
+
+    <html:audio id="title-music"></html:audio>
+    <html:audio id="navigation-start" src="chrome://xuloobe/skin/icons/navigate.mp3"></html:audio>
+
+    <script type="application/javascript" src="chrome://xuloobe/content/xuloobe.js" />
+</window>

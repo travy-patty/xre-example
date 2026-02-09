@@ -1,3 +1,3 @@
-content example file:chrome/content/
-skin example classic/1.0 file:chrome/skin/
-locale example en-US file:chrome/locale/en-US/
+content xuloobe file:chrome/content/
+skin xuloobe classic/1.0 file:chrome/skin/
+locale xuloobe en-US file:chrome/locale/en-US/
