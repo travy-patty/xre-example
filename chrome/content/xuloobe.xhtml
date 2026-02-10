@@ -93,8 +93,8 @@
                             <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
                         </hbox>
                         <hbox class="page-footer-right">
-                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
-                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1); document.getElementById('inputUser_1').focus();" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1); document.getElementById('inputUser_1').focus();" />
                         </hbox>
                     </hbox>
                 </vbox>
@@ -148,6 +148,9 @@
                                 </tr>
                             </table>
                             <html:span>These names will appear on the Welcome screen in alphabetical order. When you start Windows, simply click your name on the Welcome screen to begin. If you want to set passwords and limit permissions for each user, or add more user accounts after you finish setting up Windows, just click <html:strong>Control Panel</html:strong> on the <html:strong>Start</html:strong> menu, and then click <html:strong>User Accounts</html:strong>.</html:span>
+                            <html:ul id="no-entered-account-warning" hidden="true">
+                                <html:li>At least one name must be entered</html:li>
+                            </html:ul>
                         </vbox>
                     </vbox>
 
@@ -157,7 +160,7 @@
                         </hbox>
                         <hbox class="page-footer-right">
                             <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
-                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.createLocalAccountsPage();" />
                         </hbox>
                     </hbox>
                 </vbox>
@@ -187,12 +190,13 @@
         </vbox>
     </deck>
 
-    <!-- <html:div id="qmark-web" style="width:200px;height:157px;overflow:hidden;">
-        <html:img id="qmark-frame" width="200" height="157" alt=" " />
-    </html:div> -->
+    <vbox id="qmark-frame">
+        <html:div id="qmark-agent" />
+    </vbox>    
 
     <html:audio id="title-music"></html:audio>
     <html:audio id="navigation-start" src="chrome://xuloobe/skin/icons/navigate.mp3"></html:audio>
 
+    <script type="application/javascript" src="chrome://xuloobe/content/agent.js" />
     <script type="application/javascript" src="chrome://xuloobe/content/xuloobe.js" />
 </window>
