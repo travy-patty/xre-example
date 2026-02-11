@@ -6,15 +6,15 @@
 }
 #xulOOBEWindow {
   display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #000;
   font-family: Arial, sans-serif;
   font-size: 9pt;
 }
 #xulOOBEWindow #modes {
-  width: 1024px;
-  height: 768px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 #xulOOBEWindow #modes #please-wait {
   align-items: center;
@@ -26,11 +26,18 @@
   width: 640px;
   height: 480px;
 }
+#xulOOBEWindow #modes #intro-container {
+  width: 100%;
+  height: 100%;
+}
 #xulOOBEWindow #modes #intro-container #intro-elem {
   width: 100%;
   height: 100%;
 }
 #xulOOBEWindow #modes #main-container {
+  width: 1024px;
+  height: 768px;
+  justify-self: center;
   background-color: #4E6FD6;
 }
 #xulOOBEWindow #modes #main-container .page-header {
@@ -139,7 +146,7 @@
   margin-block: 18px 15px;
   text-shadow: 1px 1px #1342A5, 2px 2px #2652B4, 3px 3px #3961C2, 4px 4px #4B70CF;
 }
-#xulOOBEWindow .page label,
+#xulOOBEWindow .page label:not(.table-label),
 #xulOOBEWindow .page span {
   padding: 0;
   margin: 0;
@@ -164,28 +171,40 @@
   padding-inline-start: 2px;
 }
 #xulOOBEWindow radiogroup radio .radio-label {
-  margin: 0;
+  margin: 0 !important;
 }
-#xulOOBEWindow .user-name-boxes {
-  width: 600px;
+#xulOOBEWindow .input-box-table {
   flex-direction: column;
   margin-top: 7px;
   margin-bottom: -3px;
 }
-#xulOOBEWindow .user-name-boxes tr {
+#xulOOBEWindow .input-box-table tr {
   margin-block: 5px;
   margin-inline: 20px;
 }
-#xulOOBEWindow .user-name-boxes td {
+#xulOOBEWindow .input-box-table td {
   height: 22px;
 }
-#xulOOBEWindow .user-name-boxes .user-count-label {
-  width: 225px;
+#xulOOBEWindow .input-box-table .input-box-label {
+  align-items: center;
 }
-#xulOOBEWindow .user-name-boxes .user-input-box-container {
-  width: 167px;
+#xulOOBEWindow .input-box-table .input-box-label .table-label {
+  margin: 0;
 }
-#xulOOBEWindow .user-name-boxes .user-input-box-container .user-name-box {
+#xulOOBEWindow .input-box-table .input-box-sublabel {
+  align-items: center;
+}
+#xulOOBEWindow .input-box-table .input-box-sublabel .table-label {
+  padding-left: 8px;
+  margin: 0;
+}
+#xulOOBEWindow .input-box-table #computer-error-desc {
+  color: #FFFF00;
+  font-family: Tahoma, sans-serif;
+  font-size: 9pt;
+  font-weight: bold;
+}
+#xulOOBEWindow .input-box-table .input-box-container .input-box {
   width: 100%;
   margin: 0;
   appearance: none;
@@ -197,6 +216,30 @@
   outline: 0;
   color: #000;
   background-color: #fff;
+}
+#xulOOBEWindow .user-box-table {
+  width: 600px;
+}
+#xulOOBEWindow .user-box-table .input-box-label {
+  width: 225px;
+}
+#xulOOBEWindow .user-box-table .input-box-container {
+  width: 167px;
+}
+#xulOOBEWindow .computer-name-box {
+  margin-bottom: 46px;
+}
+#xulOOBEWindow .computer-name-box .input-box-label {
+  width: 97px;
+}
+#xulOOBEWindow .computer-name-box .input-box-container {
+  width: 146px;
+}
+#xulOOBEWindow .computer-description-box .input-box-label {
+  width: 128px;
+}
+#xulOOBEWindow .computer-description-box .input-box-container {
+  width: 386px;
 }
 #xulOOBEWindow #no-entered-account-warning {
   color: #FFFF00;
@@ -216,6 +259,15 @@
 }
 #xulOOBEWindow .radio-check[selected=true] {
   list-style-image: url("chrome://xuloobe/skin/icons/radio_hot.png");
+}
+#xulOOBEWindow .desc-with-warning strong {
+  font-weight: normal;
+}
+#xulOOBEWindow .desc-with-warning[error=true] strong {
+  color: #FFFF00;
+  font-family: Tahoma, sans-serif;
+  font-size: 9pt;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=xuloobe.css.map */

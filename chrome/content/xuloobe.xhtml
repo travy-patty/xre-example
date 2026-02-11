@@ -15,7 +15,7 @@
         hidechrome="true" 
         sizemode="maximized">
 
-    <!-- <script type="application/javascript" src="chrome://xuloobe/content/jszip.min.js" />
+    <!-- <script type="application/javascript" src="chrome://xuloobe/content/jszip.js" />
     <script type="application/javascript" src="chrome://xuloobe/content/FrontierAgentServer_w.js" /> -->
 
     <deck id="modes">
@@ -51,8 +51,60 @@
                     </hbox>
                 </vbox>
 
-                <!-- Internet Connectivity -->
+                <!-- Computer Name -->
                 <vbox id="page2" class="page-container">
+                    <vbox class="page">
+                        <html:h1 class="page-header-title">What's your computer name?</html:h1>  
+                        <vbox class="page-content">
+                            <label>Choose a name for your PC that will help you identify it on your home network, if you have one. Each computer on your network must have a unique name.</label>
+                            <html:div id="computer-name-desc" class="desc-with-warning">You can name your computer based on its owner or location, for example "DAVID" or "FAMILYROOM." <html:strong>In order for your computer to appear on a network, its name cannot be longer than 15 characters or contain any spaces or characters aside from the numbers 0-9, the letters A-Z and a-z, and hyphens.</html:strong></html:div>
+
+                            <table class="input-box-table computer-name-box">
+                                <tr>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="C">Computer name:</label>
+                                    </td>
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="computerNameBox" class="input-box" maxlength="15" />
+                                    </td>
+                                    <td class="input-box-sublabel">
+                                        <label id="computer-error-desc" class="table-label" hidden="true">Please re-enter the computer name using the rules above.</label>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <label>You can also give your computer a friendly description. Unlike the computer name, the computer description may contain spaces and other special characters. "David's game machine" and "The Chavez Family Computer" are examples of computer descriptions.</label>
+
+                            <table class="input-box-table computer-description-box">
+                                <tr>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="O">Computer description:</label>
+                                    </td>
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="computerDescBox" class="input-box" />
+                                    </td>
+                                    <td class="input-box-sublabel">
+                                        <label class="table-label">(Optional)</label>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </vbox>
+                    </vbox>
+
+                    <hbox class="page-footer">
+                        <hbox class="page-footer-left">
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" hidden="true" disabled="true" />
+                        </hbox>
+                        <hbox class="page-footer-right">
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.createComputerIdentity();"/>
+                        </hbox>
+                    </hbox>
+                </vbox>
+
+                <!-- Internet Connectivity -->
+                <vbox id="page3" class="page-container">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Checking your Internet connectivity</html:h1>  
                         <vbox class="page-content">
@@ -73,7 +125,7 @@
                 </vbox>
 
                 <!-- Connect Internet options -->
-                <vbox id="page3" class="page-container">
+                <vbox id="page4" class="page-container">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Will this computer connect to the Internet directly, or through a network?</html:h1>  
                         <vbox class="page-content">
@@ -100,50 +152,50 @@
                 </vbox>
 
                 <!-- Account Creation -->
-                <vbox id="page4" class="page-container">
+                <vbox id="page5" class="page-container">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Who will use this computer?</html:h1>  
                         <vbox class="page-content">
                             <label>Type the name of each person who will use this computer.  Windows will create a separate user account for each person so you can personalize the way you want Windows to organize and display information, protect your files and computer settings, and customize the desktop.</label>
-                            <table class="user-name-boxes">
+                            <table class="input-box-table user-box-table">
                                 <tr>
-                                    <td class="user-count-label">
-                                        <label accesskey="u">Your name:</label>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="u">Your name:</label>
                                     </td>
-                                    <td class="user-input-box-container">
-                                        <html:input type="text" id="inputUser_1" class="user-name-box" maxlength="20" />
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="inputUser_1" class="input-box" maxlength="20" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="user-count-label">
-                                        <label accesskey="2">2nd User:</label>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="2">2nd User:</label>
                                     </td>
-                                    <td class="user-input-box-container">
-                                        <html:input type="text" id="inputUser_2" class="user-name-box" maxlength="20" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="user-count-label">
-                                        <label accesskey="3">3rd User:</label>
-                                    </td>
-                                    <td class="user-input-box-container">
-                                        <html:input type="text" id="inputUser_3" class="user-name-box" maxlength="20" />
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="inputUser_2" class="input-box" maxlength="20" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="user-count-label">
-                                        <label accesskey="4">4th User:</label>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="3">3rd User:</label>
                                     </td>
-                                    <td class="user-input-box-container">
-                                        <html:input type="text" id="inputUser_4" class="user-name-box" maxlength="20" />
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="inputUser_3" class="input-box" maxlength="20" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="user-count-label">
-                                        <label accesskey="5">5th User:</label>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="4">4th User:</label>
                                     </td>
-                                    <td class="user-input-box-container">
-                                        <html:input type="text" id="inputUser_5" class="user-name-box" maxlength="20" />
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="inputUser_4" class="input-box" maxlength="20" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="input-box-label">
+                                        <label class="table-label" accesskey="5">5th User:</label>
+                                    </td>
+                                    <td class="input-box-container">
+                                        <html:input type="text" id="inputUser_5" class="input-box" maxlength="20" />
                                     </td>
                                 </tr>
                             </table>
@@ -166,7 +218,7 @@
                 </vbox>
 
                 <!-- End -->
-                <vbox id="page5" class="page-container">
+                <vbox id="page6" class="page-container">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Thank you!</html:h1>  
                         <vbox class="page-content">
@@ -190,13 +242,12 @@
         </vbox>
     </deck>
 
-    <vbox id="qmark-frame">
-        <html:div id="qmark-agent" />
-    </vbox>    
+    <!-- <html:div id="qmark-web" style="width:200px;height:157px;overflow:hidden;">
+        <html:img id="qmark-frame" width="200" height="157" alt=" " />
+    </html:div> -->
 
     <html:audio id="title-music"></html:audio>
     <html:audio id="navigation-start" src="chrome://xuloobe/skin/icons/navigate.mp3"></html:audio>
 
-    <script type="application/javascript" src="chrome://xuloobe/content/agent.js" />
     <script type="application/javascript" src="chrome://xuloobe/content/xuloobe.js" />
 </window>

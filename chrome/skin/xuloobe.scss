@@ -7,15 +7,15 @@
 
 #xulOOBEWindow {
     display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #000;
     font-family: Arial, sans-serif;
     font-size: 9pt;
 
     #modes {
-        width: 1024px;
-        height: 768px;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
 
         #please-wait {
             align-items: center;
@@ -29,7 +29,10 @@
             }
         }
 
-        #intro-container {            
+        #intro-container {       
+            width: 100%;
+            height: 100%;
+
             #intro-elem {
                 width: 100%;
                 height: 100%;
@@ -37,6 +40,10 @@
         }
 
         #main-container {
+            width: 1024px;
+            height: 768px;
+            justify-self: center;
+
             background-color: #4E6FD6;
 
             .page-header {
@@ -189,7 +196,7 @@
                 4px 4px #4B70CF;
         }
 
-        label,
+        label:not(.table-label),
         span {
             padding: 0;
             margin: 0;
@@ -218,13 +225,12 @@
             }
 
             .radio-label {
-                margin: 0;
+                margin: 0 !important;
             }
         }
     }
 
-    .user-name-boxes {
-        width: 600px;
+    .input-box-table {
         flex-direction: column;
         margin-top: 7px;
         margin-bottom: -3px;
@@ -238,14 +244,32 @@
             height: 22px;
         }
 
-        .user-count-label {
-            width: 225px;
+        .input-box-label {
+            align-items: center;
+
+            .table-label {
+                margin: 0;
+            }
         }
 
-        .user-input-box-container {
-            width: 167px;
+        .input-box-sublabel {
+            align-items: center;
 
-            .user-name-box {
+            .table-label {
+                padding-left: 8px;
+                margin: 0;
+            }
+        }
+
+        #computer-error-desc {
+            color: #FFFF00;
+            font-family: Tahoma, sans-serif;
+            font-size: 9pt;
+            font-weight: bold;
+        }
+
+        .input-box-container {
+            .input-box {
                 width: 100%;
                 margin: 0;
                 appearance: none;
@@ -260,6 +284,41 @@
             }
         }
     }
+
+    .user-box-table {
+        width: 600px;
+
+        .input-box-label {
+            width: 225px;
+        }
+
+        .input-box-container {
+            width: 167px;
+        }
+    }
+
+    .computer-name-box {
+        margin-bottom: 46px;
+
+        .input-box-label {
+            width: 97px;
+        }
+
+        .input-box-container {
+            width: 146px;
+        }
+    }
+
+    .computer-description-box {
+        .input-box-label {
+            width: 128px;
+        }
+
+        .input-box-container {
+            width: 386px;
+        }
+    }
+
 
     #no-entered-account-warning {
         color: #FFFF00;
@@ -281,6 +340,21 @@
 
         &[selected="true"] {
             list-style-image: url("chrome://xuloobe/skin/icons/radio_hot.png");
+        }
+    }
+
+    .desc-with-warning {
+        strong {
+            font-weight: normal;
+        }
+
+        &[error="true"] {
+            strong {
+                color: #FFFF00;
+                font-family: Tahoma, sans-serif;
+                font-size: 9pt;
+                font-weight: bold;
+            }
         }
     }
 }

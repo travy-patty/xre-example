@@ -1,3 +1,4 @@
-content xuloobe file:chrome/content/
-skin xuloobe classic/1.0 file:chrome/skin/
-locale xuloobe en-US file:chrome/locale/en-US/
+content xuloobe             file:chrome/content/
+skin    xuloobe             classic/1.0 file:chrome/skin/
+
+locale  xuloobe     en-US   file:chrome/locale/en-US/
