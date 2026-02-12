@@ -1,15 +1,9 @@
 var { IdentityManager } = ChromeUtils.importESModule("chrome://xuloobe/content/modules/IdentityManager.sys.mjs");
+var g_XULOobe;
 
 const DEBUG_INTRO_SEQUENCE = true;
 const OOBE_INTRO_VIDEO = "chrome://xuloobe/skin/icons/intro.webm";
 const OOBE_INTRO_AUDIO = "chrome://xuloobe/skin/icons/title.mp3";
-
-var g_XULOobe;
-
-var g_SelectedMode = 0;
-var g_SelectedPage = 1; // defualt to the first page
-
-var pageStack = [];
 
 {
     class XULOOBEManager {
@@ -33,46 +27,68 @@ var pageStack = [];
             return document.getElementById("navigation-start");
         }
 
+        _getPageElement(pageId) {
+            return document.querySelector(`[data-page-id="${pageId}"]`);
+        }
+
+        constructor() {
+            this.selectedMode = null;
+            this.selectedPage = 0;
+            this.pageStack = [];
+
+            this._initIntroSequence();
+            this._initQMarkIntroSequence();
+
+            this._navigationStartAudio.load();
+
+            this.showPage("welcome");
+        }
+
         _initIntroSequence() {
-            if (DEBUG_INTRO_SEQUENCE) {
-                // Ensure that the Please Wait... screen is shown
-                g_SelectedMode = 0;
-                this._modesDeck.selectedIndex = g_SelectedMode;
-                document.documentElement.style.cursor = "wait";
-                document.documentElement.style.pointerEvents = "none"; 
-
-                // Since we just larping we can just fake the Please Wait... screen 
-                // for a certain amount of time
-                setTimeout(() => { 
-                    g_SelectedMode = 1;
-                    this._modesDeck.selectedIndex = g_SelectedMode;
-                    
-                    document.documentElement.style.cursor = "none";
-
-                    this._introVideoElem.src = OOBE_INTRO_VIDEO;
-                    this._introVideoElem.load();
-                    this._introVideoElem.play();
-                    this._introVideoElem.addEventListener("ended", (e) => {
-                        g_SelectedMode = 2;
-                        this._modesDeck.selectedIndex = g_SelectedMode;
-
-                        document.documentElement.style.cursor = "auto";
-                        document.documentElement.style.pointerEvents = "auto"; 
-                    });
-
-                    this._titleAudioElem.src = OOBE_INTRO_AUDIO;
-                    this._titleAudioElem.load();
-                    this._titleAudioElem.play();
-                }, 3000);
-            }
-            else {
-                g_SelectedMode = 2;
-                this._modesDeck.selectedIndex = g_SelectedMode;
+            if (!DEBUG_INTRO_SEQUENCE) {
+                this.selectedMode = 2;
+                this._modesDeck.selectedIndex = this.selectedMode;
 
                 this._titleAudioElem.src = OOBE_INTRO_AUDIO;
                 this._titleAudioElem.load();
                 this._titleAudioElem.play();
+
+                return;
             }
+
+            /*
+             *     Ensure that the "Please Wait..." screen is shown
+             */
+            this.selectedMode = 0;
+            this._modesDeck.selectedIndex = this.selectedMode;
+            document.documentElement.style.cursor = "wait";
+            document.documentElement.style.pointerEvents = "none"; 
+
+            /*
+             *     Since we are faking the "Please Wait..." screen,
+             *     pretend to show it for 3 seconds
+             */
+            setTimeout(() => { 
+                this.selectedMode = 1;
+                this._modesDeck.selectedIndex = this.selectedMode;
+                
+                document.documentElement.style.cursor = "none";
+
+                this._introVideoElem.src = OOBE_INTRO_VIDEO;
+                this._introVideoElem.load();
+                this._introVideoElem.play();
+                this._introVideoElem.addEventListener("ended", (e) => {
+                    this.selectedMode = 2;
+                    this._modesDeck.selectedIndex = this.selectedMode;
+
+                    document.documentElement.style.cursor = "auto";
+                    document.documentElement.style.pointerEvents = "auto"; 
+                });
+
+                this._titleAudioElem.src = OOBE_INTRO_AUDIO;
+                this._titleAudioElem.load();
+                this._titleAudioElem.play();
+            }, 3000);
         }
 
         async _initQMarkIntroSequence() {
@@ -91,41 +107,38 @@ var pageStack = [];
             // });
         }
 
-        init() {
-            this._initIntroSequence();
-            this._initQMarkIntroSequence();
+        showPage(pageId, pushToStack = true) {
+            let pageIdElement = document.querySelector(`[data-page-id="${pageId}"]`);
 
-            this._navigationStartAudio.load();
+            let pageIndex = Array.from(this._pageDeck.children).indexOf(pageIdElement);
 
-            this._pageDeck.selectedIndex = g_SelectedPage - 1;
-        }
+            if (pageIdElement) {
+                if (pageIndex !== -1) {
+                    this._pageDeck.selectedIndex = pageIndex;
+                    this.selectedPage = pageId;
 
-        showPage(pageNumber, pushToStack = true) {
-            var pageId = 'page' + pageNumber;
-            var selectedPage = document.getElementById(pageId);
-
-            this._navigationStartAudio.play();
-
-            if (selectedPage) {
-                this._pageDeck.selectedIndex = pageNumber - 1;
-                g_SelectedPage = pageNumber;
-
-                if (pushToStack) {
-                    pageStack.push(pageNumber);
+                    if (pushToStack) {
+                        this.pageStack.push(pageId);
+                    }
+                    
+                    this._navigationStartAudio.play();
                 }
-            } 
+            }
             else {
                 console.error('Page not found: ' + pageId);
             }
         }
 
         goBack() {
-            pageStack.pop();
-            this.showPage(pageStack[pageStack.length - 1], false);
+            if (this.pageStack.length <= 1)
+                return
+
+            this.pageStack.pop();
+            this.showPage(this.pageStack[this.pageStack.length - 1], false);
         }
 
         createComputerIdentity() {
-            let compNamePage = document.getElementById("page2");
+            let compNamePage = this._getPageElement("compname");
 
             if (compNamePage) {
                 let compNameBox = document.getElementById("computerNameBox");
@@ -138,7 +151,6 @@ var pageStack = [];
 
                 let compDescVal = compDescBox.value.trim();
 
-
                 if (compDescVal) {
                     IdentityManager.setComputerDescription(compDescVal);
                 }
@@ -149,6 +161,9 @@ var pageStack = [];
                     this.checkConnectivity();
                 }
                 else {
+                    /*
+                     *     Show the bold yellow error text
+                     */
                     computerErrorDesc.removeAttribute("hidden");
                     computerNameDesc.setAttribute("error", "true");
                 }
@@ -157,21 +172,22 @@ var pageStack = [];
 
         checkConnectivity() {
             if (navigator.onLine) {
-                this.showPage(g_SelectedPage + 1);
+                this.showPage("ics");
 
                 setTimeout(() => { 
-                    if (g_SelectedPage == 3) {
-                        this.showPage(g_SelectedPage + 1);
+                    if (this.selectedPage == "ics") {
+                        this.showPage("ics-1");
                     }
                 }, 3000);
             }
             else {
-                this.showPage(5);
+                this.showPage("identity");
             }
         }
 
         createLocalAccountsPage() {
-            let creationPage = document.getElementById("page5");
+            let creationPage = this._getPageElement("identity");
+            let created = false;
 
             for (let i = 1; i <= 5; i++) {
                 let inputUserBox = document.getElementById(`inputUser_${i}`);
@@ -183,16 +199,22 @@ var pageStack = [];
                         password: null
                     });
 
-                    this.showPage(g_SelectedPage + 1);
-                }
-                else {
-                    creationPage.querySelector("#no-entered-account-warning").removeAttribute("hidden");
-                    break;
+                    created = true;
                 }
             };
+
+            if (!created) {
+                /*
+                 *     Show the no entered account warning if there's no values on
+                 *     any of the input boxes
+                 */
+                creationPage.querySelector("#no-entered-account-warning").removeAttribute("hidden");
+                return;
+            }
+
+            this.showPage("finish");
         }
     };
 
     g_XULOobe = new XULOOBEManager;
-    g_XULOobe.init();
 }

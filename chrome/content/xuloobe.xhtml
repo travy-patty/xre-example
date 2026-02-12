@@ -7,7 +7,6 @@
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         xmlns:html="http://www.w3.org/1999/xhtml"
         id="xulOOBEWindow"
-        icon="xulOOBEWindow"
         title="&xuloobe.title;"
         width="1024"
         height="768"
@@ -31,7 +30,7 @@
             </hbox>
             <deck id="page-container" flex="1">
                 <!-- Welcome Page -->
-                <vbox id="page1" class="page-container">
+                <vbox id="page1" class="page-container" data-page-id="welcome">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Welcome to Microsoft Windows</html:h1>  
                         <vbox class="page-content">
@@ -46,13 +45,13 @@
                         </hbox>
                         <hbox class="page-footer-right">
                             <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
-                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1)"/>
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage('compname')"/>
                         </hbox>
                     </hbox>
                 </vbox>
 
                 <!-- Computer Name -->
-                <vbox id="page2" class="page-container">
+                <vbox id="page2" class="page-container" data-page-id="compname">
                     <vbox class="page">
                         <html:h1 class="page-header-title">What's your computer name?</html:h1>  
                         <vbox class="page-content">
@@ -94,7 +93,7 @@
 
                     <hbox class="page-footer">
                         <hbox class="page-footer-left">
-                            <button id="footer-button" class="back-button" label="Back" accesskey="B" hidden="true" disabled="true" />
+                            <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
                         </hbox>
                         <hbox class="page-footer-right">
                             <button id="footer-button" class="skip-button" label="Skip" accesskey="S" hidden="true" disabled="true" />
@@ -104,7 +103,7 @@
                 </vbox>
 
                 <!-- Internet Connectivity -->
-                <vbox id="page3" class="page-container">
+                <vbox id="page3" class="page-container" data-page-id="ics">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Checking your Internet connectivity</html:h1>  
                         <vbox class="page-content">
@@ -118,14 +117,14 @@
                             <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
                         </hbox>
                         <hbox class="page-footer-right">
-                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1)" />
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage('ics-1')" />
                             <button id="footer-button" class="next-button" label="Next" accesskey="N" disabled="true" />
                         </hbox>
                     </hbox>
                 </vbox>
 
                 <!-- Connect Internet options -->
-                <vbox id="page4" class="page-container">
+                <vbox id="page4" class="page-container" data-page-id="ics-1">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Will this computer connect to the Internet directly, or through a network?</html:h1>  
                         <vbox class="page-content">
@@ -145,14 +144,14 @@
                             <button id="footer-button" class="back-button" label="Back" accesskey="B" onclick="g_XULOobe.goBack()" />
                         </hbox>
                         <hbox class="page-footer-right">
-                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage(g_SelectedPage + 1); document.getElementById('inputUser_1').focus();" />
-                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage(g_SelectedPage + 1); document.getElementById('inputUser_1').focus();" />
+                            <button id="footer-button" class="skip-button" label="Skip" accesskey="S" onclick="g_XULOobe.showPage('identity'); document.getElementById('inputUser_1').focus();" />
+                            <button id="footer-button" class="next-button" label="Next" accesskey="N" onclick="g_XULOobe.showPage('identity'); document.getElementById('inputUser_1').focus();" />
                         </hbox>
                     </hbox>
                 </vbox>
 
                 <!-- Account Creation -->
-                <vbox id="page5" class="page-container">
+                <vbox id="page5" class="page-container" data-page-id="identity">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Who will use this computer?</html:h1>  
                         <vbox class="page-content">
@@ -218,7 +217,7 @@
                 </vbox>
 
                 <!-- End -->
-                <vbox id="page6" class="page-container">
+                <vbox id="page6" class="page-container" data-page-id="finish">
                     <vbox class="page">
                         <html:h1 class="page-header-title">Thank you!</html:h1>  
                         <vbox class="page-content">
